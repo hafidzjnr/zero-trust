@@ -47,6 +47,7 @@ Pada proses finalisasi, Grade Service memperoleh Service Token dan meminta sinkr
 
 ```text
 zero-trust/
+├── check-audit-log.js
 ├── gateway/
 │   ├── server.js
 │   ├── auth.js
@@ -59,11 +60,13 @@ zero-trust/
 │       └── server.js
 ├── shared/
 │   ├── database.js
-│   ├── service-auth.js
-│   └── zero-trust.db
+│   ├── seed.js
+│   └── service-auth.js
 ├── .env
 ├── .gitignore
 ├── package.json
+├── package-lock.json
+├── README.md
 └── zero-trust-test.http
 ```
 
