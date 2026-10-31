@@ -1,0 +1,33 @@
+
+{
+  "name": "zero-trust",
+  "version": "1.0.0",
+  "description": "Zero Trust Security - Sistem Informasi Nilai dan Transkrip",
+  "main": "gateway/server.js",
+  "scripts": {
+    "gateway": "nodemon gateway/server.js",
+    "nilai": "nodemon services/nilai/server.js",
+    "transkrip": "nodemon services/transkrip/server.js",
+    "start:all": "node gateway/server.js",
+    "test": "echo \"Gunakan REST Client untuk pengujian API\""
+  },
+  "keywords": [
+    "zero-trust",
+    "api-gateway",
+    "jwt"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "better-sqlite3": "^13.0.3",
+    "dotenv": "^18.0.9",
+    "express": "^5.3.0",
+    "http-proxy-middleware": "^4.2.1",
+    "jsonwebtoken": "^9.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}

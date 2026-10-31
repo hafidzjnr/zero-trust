@@ -1,0 +1,85 @@
+@baseUrl = http://localhost:3000
+
+
+### Uji akses tanpa token
+
+# @name tanpaToken
+GET {{baseUrl}}/nilai
+
+
+### Login mahasiswa
+
+# @name loginMahasiswa
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+    "username": "mhs1",
+    "password": "Mhs12345!",
+    "deviceId": "device-mhs1-001"
+}
+
+
+### Mahasiswa melihat nilai sendiri
+
+GET {{baseUrl}}/nilai
+Authorization: Bearer {{loginMahasiswa.response.body.accessToken}}
+X-Device-ID: device-mhs1-001
+
+
+### Tolak device ID yang tidak terdaftar
+
+GET {{baseUrl}}/nilai
+Authorization: Bearer {{loginMahasiswa.response.body.accessToken}}
+X-Device-ID: device-salah-999
+
+
+### Tolak mahasiswa yang mencoba mengubah nilai
+
+PUT {{baseUrl}}/nilai/2
+Authorization: Bearer {{loginMahasiswa.response.body.accessToken}}
+X-Device-ID: device-mhs1-001
+Content-Type: application/json
+
+{
+    "score": 95
+}
+
+
+### Tolak mahasiswa yang mencoba melihat transkrip orang lain
+
+GET {{baseUrl}}/transkrip/247006111002
+Authorization: Bearer {{loginMahasiswa.response.body.accessToken}}
+X-Device-ID: device-mhs1-001
+
+
+### Tolak mahasiswa yang mencoba menyinkronkan transkrip
+
+POST {{baseUrl}}/transkrip/sinkron
+Authorization: Bearer {{loginMahasiswa.response.body.accessToken}}
+X-Device-ID: device-mhs1-001
+Content-Type: application/json
+
+{
+    "classId": 2
+}
+
+
+### Login admin
+
+# @name loginAdmin
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password": "Admin123!",
+    "deviceId": "device-admin-001"
+}
+
+
+### Admin melihat transkrip mahasiswa lain
+
+GET {{baseUrl}}/transkrip/247006111002
+Authorization: Bearer {{loginAdmin.response.body.accessToken}}
+X-Device-ID: device-admin-001
